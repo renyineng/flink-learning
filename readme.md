@@ -14,8 +14,8 @@ mvn clean package -Plocal  打本地包
 
 -Dmaven.test.skip=true 跳过测试用例
 
-hdfs dfs -ls hdfs://tal-cluster/user/flink/checkpoints/09e18819c0a3e5e6171c67692eb4b650
- /usr/local/Cellar/apache-flink/1.10.0/libexec/bin/start-cluster.sh
+Mac Flink本地安装目录 以及启动脚本
+/usr/local/Cellar/apache-flink/1.10.0/libexec/bin/start-cluster.sh
  
 #### 启动
 flink run \
