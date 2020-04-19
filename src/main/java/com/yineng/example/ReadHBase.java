@@ -18,6 +18,7 @@ public class ReadHBase {
         Configuration conf = HBaseConfiguration.create();
 // 集群的连接地址，在控制台页面的数据库连接界面获得(注意公网地址和VPC内网地址)
         ParameterTool properties = ParameterTool.fromPropertiesFile(Thread.currentThread().getContextClassLoader().getResourceAsStream("application.properties"));
+        System.err.println(properties.get("app.app_env")+"aaa");
         conf.set("hbase.zookeeper.quorum", properties.get("hbase.zookeeper.quorum"));
 // 设置用户名密码，默认root:root，可根据实际情况调整
 //        conf.set("hbase.client.username", "root");

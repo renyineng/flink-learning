@@ -209,8 +209,51 @@ under the License.
 <!--			<version>1.2.47</version>-->
 		</dependency>
 	</dependencies>
+	<profiles>
+		<profile>
+			<!-- 使用 mvn package 打包时, -P 指定 profile 的输入值就是此 id -->
+			<id>local</id>
+			<properties>
+				<!-- env 必须与文件的后缀一致(application-${env}.properties) -->
+				<env>local</env>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<env>test</env>
+			</properties>
+
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<env>prod</env>
+			</properties>
+		</profile>
+	</profiles>
 
 	<build>
+		<filters>
+			<filter>src/main/resources/config/application-${env}.properties</filter>
+		</filters>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<!--非常重要的参数 通过指定为true 来进行变量替换 占位符是${变量名称}这样的形式，maven会自动读取配置文件，然后解析其中的占位符，使用上面pom文件中定义的属性进行替换。-->
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>config/application*.properties</exclude>
+				</excludes>
+				<includes>
+					<include>**/*</include>
+				</includes>
+
+			</resource>
+		</resources>
 		<plugins>
 
 			<!-- Java Compiler -->
@@ -260,7 +303,7 @@ under the License.
 							</filters>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.yineng.stream.StreamingJob</mainClass>
+									<mainClass>com.yineng.stream.Streaming</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
