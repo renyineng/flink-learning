@@ -59,38 +59,154 @@ under the License.
 			<artifactId>flink-java</artifactId>
 			<version>${flink.version}</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.flink</groupId>
 			<artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
 			<version>${flink.version}</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-
-		<!-- Add connector dependencies here. They must be in the default scope (compile). -->
-
-		<!-- Example:
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-clients_${scala.binary.version}</artifactId>
+			<version>${flink.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-clients</artifactId>
+			<version>0.10.2.2</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-connector-kafka-0.10_${scala.binary.version}</artifactId>
+			<artifactId>flink-connector-kafka-0.11_2.11</artifactId>
 			<version>${flink.version}</version>
 		</dependency>
-		-->
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-statebackend-rocksdb_2.11</artifactId>
+			<version>${flink.version}</version>
+			<scope>provided</scope>
 
+		</dependency>
+		<dependency>
+			<groupId>com.aliyun.hbase</groupId>
+			<artifactId>alihbase-client</artifactId>
+			<version>2.0.5</version>
+			<exclusions>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-table-api-java-bridge_2.11</artifactId>
+			<version>${flink.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-table-common</artifactId>
+			<version>${flink.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-jdbc_2.11</artifactId>
+			<version>${flink.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+
+			<version>5.1.27</version>
+		</dependency>
 		<!-- Add logging framework, to produce console output when running in the IDE. -->
 		<!-- These dependencies are excluded from the application JAR by default. -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.7</version>
-			<scope>runtime</scope>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>1.2.3</version>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.27</version>
-			<scope>runtime</scope>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.3</version>
+<!--			<scope>test</scope>-->
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+			<version>1.7.7</version>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.apache.flink</groupId>-->
+<!--			<artifactId>flink-runtime-web_${scala.binary.version}</artifactId>-->
+<!--			<version>${flink.version}</version>-->
+<!--		</dependency>-->
+
+<!--		<dependency>-->
+<!--			<groupId>org.slf4j</groupId>-->
+<!--			<artifactId>slf4j-log4j12</artifactId>-->
+<!--			<version>1.7.7</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.slf4j</groupId>-->
+<!--			<artifactId>slf4j-api</artifactId>-->
+<!--			<version>1.7.25</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.slf4j</groupId>-->
+<!--			<artifactId>slf4j-simple</artifactId>-->
+<!--			<version>1.7.25</version>-->
+<!--		</dependency>-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.10</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.68</version>
+<!--			<version>1.2.47</version>-->
 		</dependency>
 	</dependencies>
 
@@ -144,7 +260,7 @@ under the License.
 							</filters>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.yineng.flink.StreamingJob</mainClass>
+									<mainClass>com.yineng.stream.StreamingJob</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>

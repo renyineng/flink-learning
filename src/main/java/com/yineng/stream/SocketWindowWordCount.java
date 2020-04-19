@@ -1,16 +1,14 @@
-package com.yineng.flink;
+package com.yineng.stream;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.functions.ReduceFunction;
 import org.apache.flink.api.java.utils.ParameterTool;
-import org.apache.flink.runtime.state.StateBackend;
-import org.apache.flink.runtime.state.filesystem.FsStateBackend;
-import org.apache.flink.streaming.api.CheckpointingMode;
 import org.apache.flink.streaming.api.datastream.DataStream;
-import org.apache.flink.streaming.api.environment.CheckpointConfig;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.util.Collector;
 
+@Slf4j
 public class SocketWindowWordCount {
 
     public static void main(String[] args) throws Exception {
@@ -22,6 +20,9 @@ public class SocketWindowWordCount {
             System.err.println("No port specified. Please run 'SocketWindowWordCount --port <port>'");
             return;
         }
+        log.error("error socket word count {}, is {}", 100, 1001);
+        log.warn("warn socket word count {}", 101);
+        log.info("info socket word count {}, is {}", 101, 102);
 
         // 自动获取当前的执行环境
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -29,9 +30,7 @@ public class SocketWindowWordCount {
         //从socket中读取数据源  需要先执行 nc -l 9000
         DataStream<String> text = env.socketTextStream("localhost", 9000, "\n");
 
-//        String dir = "file:///Users/renyineng/wwwroot/flink/checkpoint";
 //        StateBackend stateBackend = new FsStateBackend(dir);//设置checkpoint 检查点保存方式和路径
-//
 //        env.enableCheckpointing(5000);//5s一次checkpoint
 //        env.setStateBackend(stateBackend);
 //

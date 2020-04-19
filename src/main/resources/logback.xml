@@ -1,0 +1,48 @@
+<!-- logback中一共有5种有效级别，分别是TRACE、DEBUG、INFO、WARN、ERROR，优先级依次从低到高 -->
+<!--configuration 根配置，下面有 appender, logger, root 3个子元素-->
+<!--appender 将记录日志的任务委托给明伟appender的组件，-->
+<!--要点，可以配置0个或多个 有<file> filter layout encoder4个子元素-->
+<!--    属性  name 设置appender 名称   cclass 设置具体的实例化类-->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <param name="target" value="System.out"/>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger %replace(%caller{1}){'\t|Caller.{1}0|\r\n', ''} %X{sourceThread} - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+    </appender>
+
+    <appender name="all" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.file}</file>
+        <!-- 根据时间来制定滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${user.dir}/logs/app-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>1</maxHistory>
+        </rollingPolicy>
+
+        <!-- 根据文件大小来制定滚动策略 -->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>1MB</maxFileSize>
+        </triggeringPolicy>
+
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>ERROR</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{60} %caller{2} %X{sourceThread} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="org.apache.flink.runtime.jobgraph.JobGraph" level="DEBUG"/>
+    <root level="WARN">
+        <appender-ref ref="all" />
+        <appender-ref ref="stdout" />
+    </root>
+</configuration>
