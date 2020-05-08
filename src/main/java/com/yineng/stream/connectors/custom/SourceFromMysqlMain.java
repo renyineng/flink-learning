@@ -1,21 +1,13 @@
 package com.yineng.stream.connectors.custom;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.yineng.stream.pojo.Heart;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.flink.api.common.accumulators.IntCounter;
-import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
-import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.source.RichParallelSourceFunction;
-import org.apache.flink.streaming.api.functions.source.RichSourceFunction;
-import org.apache.flink.streaming.api.functions.source.SourceFunction;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 
 /**
  * 从mysql读取数据，读取技术完成后会退出，只能设置单个并行度 或者继承自RichSourceFunction 否则会多次读取

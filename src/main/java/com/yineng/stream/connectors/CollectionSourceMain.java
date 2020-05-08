@@ -2,12 +2,13 @@ package com.yineng.stream.connectors;
 
 import com.google.common.collect.Lists;
 import com.yineng.common.utils.DateUtils;
-import com.yineng.stream.pojo.Heart;
+import com.yineng.stream.pojo.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.java.tuple.Tuple4;
-import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -20,9 +21,12 @@ public class CollectionSourceMain {
         env.setParallelism(1);
         //POJO
         env.fromElements(
-                    new Heart("project1",1, "100", Timestamp.valueOf(DateUtils.parse("2020-01-01 00:00:11"))),
-                    new Heart("project1",2, "100", Timestamp.valueOf(DateUtils.parse("2020-01-01 00:00:21"))),
-                    new Heart("project1",2, "101", Timestamp.valueOf(DateUtils.parse("2020-01-01 00:00:31")))
+                new Order(1,100, 10001 , 11, BigDecimal.valueOf(100), Timestamp.valueOf(DateUtils.parse("2020-01-01 00:00:11"))),
+                new Order(2,101, 10002 , 12, BigDecimal.valueOf(102), Timestamp.valueOf(DateUtils.parse("2020-01-01 00:00:21"))),
+                new Order(3,100, 10002 , 12, BigDecimal.valueOf(102), Timestamp.valueOf(DateUtils.parse("2020-01-01 00:00:31"))),
+                new Order(2,102, 10001 , 11, BigDecimal.valueOf(100), Timestamp.valueOf(DateUtils.parse("2020-01-01 00:00:41"))),
+                new Order(1,103, 10003 , 13, BigDecimal.valueOf(103), Timestamp.valueOf(DateUtils.parse("2020-01-01 00:00:51")))
+
         ).print();
 
         //基本类型
@@ -45,7 +49,7 @@ public class CollectionSourceMain {
         DataStreamSource<Tuple4> tuple4DataStreamSource = env.fromCollection(studentList);
         //sink 标准错误输出
         tuple4DataStreamSource.printToErr();
-        tuple4DataStreamSource.writeAsCsv("./aa.csv",  FileSystem.WriteMode.OVERWRITE);
+//        tuple4DataStreamSource.writeAsCsv("./aa.csv",  FileSystem.WriteMode.OVERWRITE);
         //基于给定的序列区间进行构建
         env.generateSequence(0,100).printToErr();
 
